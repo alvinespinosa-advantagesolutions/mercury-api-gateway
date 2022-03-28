@@ -1,0 +1,76 @@
+//https://ocelot.readthedocs.io/en/latest/index.html
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7001"
+        }
+      ],
+      "UpstreamPathTemplate": "/products",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "products",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "permissions": "read:business"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/searchcampaigns",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7001"
+        }
+      ],
+      "UpstreamPathTemplate": "/searchcampaigns",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "products"
+    },
+    {
+      "DownstreamPathTemplate": "/api/rulesettings",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7002"
+        }
+      ],
+      "UpstreamPathTemplate": "/rulesettings",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "alerts"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "products",
+      "Config": [
+        {
+          "Name": "Products API",
+          "Version": "v1",
+          "Url": "https://localhost:7001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "alerts",
+      "Config": [
+        {
+          "Name": "Alerts API",
+          "Version": "v1",
+          "Url": "https://localhost:7002/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost"
+  }
+}
