@@ -11,10 +11,7 @@ namespace mercury_api_gateway.Extensions
     {
         public static AuthenticationBuilder ConfigureAuthentication(this IServiceCollection services, Auth0Settings auth0Settings, IWebHostEnvironment webHostEnvironment)
             => services
-                .AddAuthentication(options => { 
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
+                .AddAuthentication()
                 .AddJwtBearer(options =>
                 {
                     options.Authority = auth0Settings.Domain;

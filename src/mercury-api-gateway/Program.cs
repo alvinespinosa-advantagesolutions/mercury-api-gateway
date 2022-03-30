@@ -1,6 +1,8 @@
 using mercury_api_gateway.Constants;
 using mercury_api_gateway.Extensions;
 using mercury_api_gateway.Models.settings;
+using MMLib.Ocelot.Provider.AppConfiguration;
+using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -8,10 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
-    config.AddJsonFile("ocelot.json");
+    config
+        .AddOcelotWithSwaggerSupport(options =>
+        {
+            options.Folder = "OcelotConfiguration"; //https://ocelot.readthedocs.io/en/latest/index.html
+        })
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json")
+        .AddEnvironmentVariables();
 });
 
-builder.Services.AddOcelot();
+
+builder.Services.AddOcelot(builder.Configuration).AddAppConfiguration();
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
 // Add services to the container.

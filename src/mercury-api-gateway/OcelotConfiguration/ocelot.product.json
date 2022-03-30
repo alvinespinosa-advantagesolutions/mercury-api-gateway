@@ -1,0 +1,18 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "product",
+      "UpstreamPathTemplate": "/product-gate/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "SwaggerKey": "product",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "permissions": "read:business"
+      }
+    }
+  ]
+}
